@@ -1,0 +1,15 @@
+<form action="" (submit)="onSubmit($event)">
+    <div class="field-wrapper">
+        <input type="text" placeholder="question" [(ngModel)]="formObj.question">
+    </div>
+    <div class="field-wrapper">
+        <input type="file" accept="image/*" #file (change)="getFileValue(file.files[0])">
+        <img [src]="formObj.file" *ngIf="formObj.file">
+    </div>
+    <div class="field-wrapper">
+        <input type="text" placeholder="text" [(ngModel)]="formObj.text">
+    </div>
+    <div class="field-wrapper">
+        <button type="submit">Submit</button>
+    </div>
+</form>
