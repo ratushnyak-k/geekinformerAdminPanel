@@ -1,0 +1,23 @@
+{
+  "name": "geek-informer-admin",
+  "description": "first commit",
+  "main": "gulpfile.js",
+  "authors": [
+    "Kostya Ratushnyak"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ratushnyak-k/geekinformerAdminPanel",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "normalize-css": "normalize.css#^3.0.3"
+  }
+}

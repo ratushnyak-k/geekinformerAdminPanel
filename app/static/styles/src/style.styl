@@ -1,0 +1,168 @@
+@import "jeet"
+// edit()
+html, body
+    height 100%
+font(font = 'Regular')
+    font-family font
+body
+    font()
+my-app
+    cf()
+img
+    width 100%
+h1, h2, h3, h4
+    margin 0
+.require-field
+    color red
+.logo
+    display inline-block
+    width 50px
+    a
+        display block
+        &:hover
+            background-color transparent
+    & + ul
+        padding 12.5px 0
+.slogan
+    padding 15px
+    display inline-block
+    width inherit
+    a
+        padding 0
+        &:hover
+            background-color transparent
+.future-ava
+    width 100px
+nav
+    cf()
+    max-width 1024px
+    margin 0 auto
+main
+    min-height calc(100% - 205px)
+.container
+    cf()
+    max-width 1024px
+    margin 0 auto
+    left-side-bar
+        col(1/4)
+        box-sizing border-box
+    router-outlet
+        & + *
+            col(3/4)
+.post
+    col(1/4, cycle:4)
+    .post_header
+        margin 10px 0
+        a
+            word-wrap break-word
+p
+    word-wrap break-word
+.author-wrap
+    position relative
+    .author-visible
+        position absolute
+        top -60px
+        left 0
+.search
+    margin-bottom 20px
+.author
+    color red
+    text-decoration underline
+.time
+    font-size 12px
+    color #919292
+.post_main
+    font-size 13px
+    word-wrap break-word
+    a
+        display block
+        margin-bottom 15px
+.badge
+    background-color #F7A300
+.best_posts
+    .panel
+        margin-bottom 0
+.panel-body
+    padding 0
+.list-group
+    margin 0
+.post_footer
+    border-top 1px solid #e7e7e7;
+    margin-top 15px
+    padding-top 10px
+    .isRated
+        font-size 12px
+.radio-wrapper
+    display inline-block
+    & > *
+        display inline-block
+        vertical-align top
+    span
+        margin-right 3px
+    input
+        margin-top 2px
+        margin-right 10px
+.navbar
+    margin-bottom 10px
+.add_article
+    float right
+    color blue
+    margin 15px
+
+.user
+    li
+        padding 10px
+        list-style none
+        img
+            width 100px
+            display inline-block
+            float right
+.upload-result
+    display none
+    margin-top 15px
+.crop-image-wrapper
+    margin 15px 0
+#commentInput
+    margin 15px 0
+    display block
+    width 100%
+    height 150px
+    resize none
+
+.comments_block
+    form
+        cf()
+    button
+        float right
+.comment
+    position relative
+    padding 15px 0
+    margin 15px 0
+    min-height 250px
+    box-sizing border-box
+    border-bottom()
+    cf()
+    &:first-child
+        border-top()
+    &:hover .remove
+        opacity 1
+    &>*
+        &:first-child
+            col(1/4)
+        &:last-child
+            col(3/4)
+    .ava-block
+        img
+            display block
+    .text-comment
+        height 150px
+    .foot-comment
+        cf()
+        a
+            float right
+            margin-right 20px
+    .remove
+        position absolute
+        opacity 0
+        top 20px
+        right 0px
