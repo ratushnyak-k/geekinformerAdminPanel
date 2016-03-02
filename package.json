@@ -1,0 +1,47 @@
+{
+  "name": "geek-informer-admin",
+  "version": "1.0.0",
+  "description": "first commit",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "angular2": "2.0.0-beta.3",
+    "angular2-jwt": "0.1.6",
+    "cors": "2.7.1",
+    "es6-promise": "3.0.2",
+    "es6-shim": "^0.33.3",
+    "express": "4.13.4",
+    "express-jwt": "3.3.0",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "systemjs": "0.19.20",
+    "zone.js": "0.5.11"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.3",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-stylus": "^2.1.0",
+    "gulp-tslint": "^3.2.0",
+    "gulp-typescript": "^2.10.0",
+    "nib": "^1.1.0",
+    "rimraf": "^2.4.2",
+    "rupture": "^0.6.1",
+    "superstatic": "^1.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ratushnyak-k/geekinformerAdminPanel.git"
+  },
+  "author": "Kostya Ratushnyak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ratushnyak-k/geekinformerAdminPanel/issues"
+  },
+  "homepage": "https://github.com/ratushnyak-k/geekinformerAdminPanel#readme"
+}
