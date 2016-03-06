@@ -14,9 +14,8 @@ export class MainForm {
     service;
     index: number = 1;
     constructor(formSevice: MainFormService) {
-        this.service = formSevice
+        this.service = formSevice;
         this.formArray = this.service.formArray;
-        console.log(this.formArray)
     }
     addOncePart() {
         this.index++;
@@ -24,6 +23,6 @@ export class MainForm {
     }
     onSubmit(e) {
         e.preventDefault();
-        console.log(this.formArray)
+        console.log(this.formArray);
     }
 }
