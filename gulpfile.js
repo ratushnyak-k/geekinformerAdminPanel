@@ -8,9 +8,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     superstatic = require('superstatic'),
     stylus = require('gulp-stylus'),
-    nib = require('nib'),
-    jeet = require('jeet'),
-    rupture = require('rupture'),
     prefixer = require('gulp-autoprefixer'),
     imagemin = require('gulp-imagemin'),
     del = require('del'),
@@ -76,7 +73,7 @@ gulp.task('watch', function() {
 gulp.task('style:dev', ['css:del'], function() {
     return gulp.src('app/static/styles/src/*.styl')
         .pipe(sourcemaps.init())
-        .pipe(stylus({ use: [nib(), jeet(), rupture()], 'include css': true })).on('error', error)
+        .pipe(stylus()).on('error', error)
         .pipe(prefixer({ browsers: ['last 2 version'], cascade: false }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('app/static/styles/dist/'))
