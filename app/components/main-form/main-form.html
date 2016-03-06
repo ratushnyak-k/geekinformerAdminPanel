@@ -1,15 +1,21 @@
-<form action="" (submit)="onSubmit($event)">
-    <div class="field-wrapper">
-        <input type="text" placeholder="question" [(ngModel)]="formObj.question">
+<form class="col-md-6 col-md-offset-3" action="" (submit)="onSubmit($event)">
+    <div *ngFor="#onePart of formArray;">
+        <h1>Part {{onePart.part}}</h1>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="question" [(ngModel)]="onePart.question">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="onePart.img">
+            <img [src]="onePart.img" *ngIf="onePart.img">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="text" [(ngModel)]="onePart.text">
+        </div>
     </div>
-    <div class="field-wrapper">
-        <input type="file" accept="image/*" #file (change)="getFileValue(file.files[0])">
-        <img [src]="formObj.file" *ngIf="formObj.file">
+    <div class="form-group clearfix">
+        <button *ngIf="index < maxLength" class="btn btn-success pull-right" (click)="addOncePart($event)">Add once</button>
     </div>
-    <div class="field-wrapper">
-        <input type="text" placeholder="text" [(ngModel)]="formObj.text">
-    </div>
-    <div class="field-wrapper">
-        <button type="submit">Submit</button>
+    <div class="form-group clearfix">
+        <button class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
     </div>
 </form>

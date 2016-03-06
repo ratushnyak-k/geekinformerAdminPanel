@@ -1,5 +1,6 @@
 export class FormModel {
-    question: string;
-    file: string;
-    text: string;
+    public question: string;
+    public img: string;
+    public text: string;
+    constructor(public part: number = 1) {}
 }
