@@ -1,4 +1,5 @@
 node_modules/
+bower/
 app/**/*.js
 app/**/*.js.map
 app/**/dist
