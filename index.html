@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <base href="/">
@@ -9,16 +9,18 @@
     <link rel="stylesheet" href="app/static/styles/dist/style.css">
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/parse/dist/parse-latest.min.js"></script>
     <script>
-    System.config({
-        defaultJSExtensions: true,
-        map: {
-            "angular2-jwt": "node_modules/angular2-jwt/angular2-jwt",
-            "angular2": "node_modules/angular2",
-            "rxjs": "node_modules/rxjs"
-        }
-    });
-    System.import('app/boot').then(null, console.error.bind(console));
+        System.config({
+            defaultJSExtensions: true,
+            map: {
+                "angular2-jwt": "node_modules/angular2-jwt/angular2-jwt",
+                "angular2": "node_modules/angular2",
+                "rxjs": "node_modules/rxjs",
+                "parse": "node_modules/parse"
+            }
+        });
+        System.import('app/boot').then(null, console.error.bind(console));
     </script>
 </head>
 

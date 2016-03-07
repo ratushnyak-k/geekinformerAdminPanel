@@ -19,5 +19,8 @@
   ],
   "devDependencies": {
     "bootstrap": "^3.3.6"
+  },
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2"
   }
 }

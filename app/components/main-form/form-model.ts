@@ -1,6 +1,9 @@
 export class FormModel {
-    public question: string;
-    public img: string;
-    public text: string;
-    constructor(public part: number = 1) {}
+    part: number;
+    question: string;
+    image: string;
+    text: string;
+    constructor(part) {
+        this.part = part;
+    }
 }
