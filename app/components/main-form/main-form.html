@@ -14,11 +14,11 @@
     <h3>Parts</h3>
     <div *ngFor="#partObj of article.parts">
         <label>Part {{partObj.part}}</label>
-        <fieldset class="form-group">
+        <fieldset class="form-group"  *ngIf="partObj.part != 1">
             <input class="form-control" type="text" placeholder="question" [(ngModel)]="partObj.question">
         </fieldset>
         <fieldset class="form-group">
-            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="partObj.img">
+            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="partObj.image">
             <img [src]="partObj.image" *ngIf="partObj.image">
         </fieldset>
         <fieldset class="form-group">
