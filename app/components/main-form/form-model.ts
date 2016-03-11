@@ -5,5 +5,8 @@ export class FormModel {
     text: string;
     constructor(part) {
         this.part = part;
+        this.question = '';
+        this.image = '';
+        this.text = '';
     }
 }

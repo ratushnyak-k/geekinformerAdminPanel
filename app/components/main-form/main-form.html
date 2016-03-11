@@ -1,24 +1,24 @@
-<form class="col-md-6 col-md-offset-3" (submit)="onSubmit($event)">
+<form class="col-md-6 col-md-offset-3" [ngFormModel]="form" (submit)="onSubmit($event)">
     <fieldset class="form-group">
         <input type="text" class="form-control" placeholder="Title" [(ngModel)]="article.title">
     </fieldset>
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Article link" [(ngModel)]="article.link">
+        <input type="text" class="form-control" placeholder="Article link" [(ngModel)]="article.link" ngControl="articleLink">
     </fieldset>
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Cover image link" [(ngModel)]="article.cover">
+        <input type="text" class="form-control" placeholder="Cover image link" [(ngModel)]="article.cover" ngControl="coverLink">
     </fieldset>
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Article source" [(ngModel)]="article.source">
+        <input type="text" class="form-control" placeholder="Article source" [(ngModel)]="article.source" ngControl="articleSource">
     </fieldset>
     <h3>Parts</h3>
-    <div *ngFor="#partObj of article.parts">
+    <div *ngFor="#partObj of article.parts; #i = index">
         <label>Part {{partObj.part}}</label>
         <fieldset class="form-group"  *ngIf="partObj.part != 1">
             <input class="form-control" type="text" placeholder="question" [(ngModel)]="partObj.question">
         </fieldset>
         <fieldset class="form-group">
-            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="partObj.image">
+            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="partObj.image" ngControl="imageLink{{i}}">
             <img [src]="partObj.image" *ngIf="partObj.image">
         </fieldset>
         <fieldset class="form-group">
@@ -29,6 +29,7 @@
         <div *ngIf="index < maxLength" class="btn btn-success pull-right" (click)="addOncePart($event)">Add once</div>
     </div>
     <div class="form-group clearfix">
-        <button class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
+        <button [disabled]="!form.valid" class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
+        <button (click)="sdfg()">sdfg</button>
     </div>
 </form>
