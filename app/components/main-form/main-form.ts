@@ -1,7 +1,6 @@
 import { Component } from 'angular2/core';
-import { FormModel } from './form-model';
 import { ControlGroup, Validators, FormBuilder, Control } from 'angular2/common';
-import { MainFormService } from '../../services/main-form-service'; //название дерьмо, надо поменять, так как это скорее конструктор новостей
+
 import Constants from '../../utils/constants';
 import DB from '../../services/DB';
 
@@ -12,38 +11,39 @@ import DB from '../../services/DB';
 
 export class MainForm {
     maxLength = Constants.NEWS_PARTS_MAX_LENGTH;
-    article;
+
+    title: Control;
+    link: Control;
+    cover: Control;
+    source: Control;
+    parts: any;
+
+    form: ControlGroup;
+    _builder: FormBuilder;
+
     index: number = 1;
-    constructor() {
-        this.article = new MainFormService();
+    constructor(private builder: FormBuilder) {
+        this._builder = builder;
+        this.form = builder.group({
+            title: new Control('', Validators.required),
+            link: new Control('', Validators.required),
+            cover: new Control('', Validators.required),
+            source: new Control('', Validators.required),
+            parts: [[new FormModel(1, this._builder).form]]
+        });
     }
     linksChecker(c: Control) {
         var regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
         if (!regex.test(c.value)) {
             return {
                 link: true
-            }
+            };
         }
-        return null
+        return null;
     }
-    fb = new FormBuilder()
-    validationObj = {
-        //как мне получить здесь доступ к главному this. через call или apply как-то?
-        'articleLink': ['http://www.typescriptlang.org/', this.linksChecker],
-        'imageLink0': ['http://www.typescriptlang.org/', this.linksChecker],
-        'coverLink': ['http://www.typescriptlang.org/', this.linksChecker],
-        'articleSource': ['http://www.typescriptlang.org/', this.linksChecker]
-
-    }
-    form = this.fb.group(this.validationObj);
     addOncePart() {
         this.index++;
-        this.article.addOncePart(this.index);
-        this.validationObj['imageLink' + (this.index-1)] = [this.article.parts[this.index-1].image, this.linksChecker];
-        this.form = this.fb.group(this.validationObj);
-    }
-    sdfg() {
-        console.log(this.form)
+        this.form.value.parts.push(new FormModel(this.index, this._builder).form);
     }
 
     onSubmit(e) {
@@ -54,5 +54,29 @@ export class MainForm {
         //    alert('Article failed')
         // });
     }
+    test() {
+        console.log(this.form);
+    }
 
+}
+
+class FormModel {
+    part: Control;
+    question: Control;
+    image: Control;
+    text: Control;
+
+    form: ControlGroup;
+
+    constructor(part, private builder: FormBuilder) {
+        this.form = builder.group({
+            part: new Control(part),
+            question: new Control('', Validators.required),
+            image: new Control('http://'),
+            text: new Control('', Validators.required)
+        });
+    }
+    getForm() {
+        return this.form;
+    }
 }

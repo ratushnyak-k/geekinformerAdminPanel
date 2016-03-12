@@ -1,35 +1,37 @@
 <form class="col-md-6 col-md-offset-3" [ngFormModel]="form" (submit)="onSubmit($event)">
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Title" [(ngModel)]="article.title">
+        <input type="text" class="form-control" placeholder="Title" ngControl="title" required>
     </fieldset>
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Article link" [(ngModel)]="article.link" ngControl="articleLink">
+        <input type="text" class="form-control" placeholder="Article link" ngControl="link" required>
     </fieldset>
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Cover image link" [(ngModel)]="article.cover" ngControl="coverLink">
+        <input type="text" class="form-control" placeholder="Cover image link" ngControl="cover" required>
     </fieldset>
     <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Article source" [(ngModel)]="article.source" ngControl="articleSource">
+        <input type="text" class="form-control" placeholder="Article source" ngControl="source" required>
     </fieldset>
     <h3>Parts</h3>
-    <div *ngFor="#partObj of article.parts; #i = index">
-        <label>Part {{partObj.part}}</label>
-        <fieldset class="form-group"  *ngIf="partObj.part != 1">
-            <input class="form-control" type="text" placeholder="question" [(ngModel)]="partObj.question">
-        </fieldset>
-        <fieldset class="form-group">
-            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="partObj.image" ngControl="imageLink{{i}}">
-            <img [src]="partObj.image" *ngIf="partObj.image">
-        </fieldset>
-        <fieldset class="form-group">
-            <textarea class="form-control" rows="3" placeholder="text" [(ngModel)]="partObj.text"></textarea>
-        </fieldset>
+    <div *ngFor="#partObj of form.value.parts; #i = index">
+        <form [ngFormModel]="partObj">
+            <label>Part {{partObj.value.part}}</label>
+            <fieldset class="form-group"  *ngIf="partObj.value.part != 1">
+                <input class="form-control" type="text" placeholder="question" ngControl="question" required>
+            </fieldset>
+            <fieldset class="form-group">
+                <input class="form-control" type="text" placeholder="link to image" ngControl="image">
+                <img [src]="image" *ngIf="image">
+            </fieldset>
+            <fieldset class="form-group">
+                <textarea class="form-control" rows="3" placeholder="text" ngControl="text" required></textarea>
+            </fieldset>
+        </form>
     </div>
     <div class="form-group clearfix">
         <div *ngIf="index < maxLength" class="btn btn-success pull-right" (click)="addOncePart($event)">Add once</div>
     </div>
     <div class="form-group clearfix">
         <button [disabled]="!form.valid" class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
-        <button (click)="sdfg()">sdfg</button>
+        <button (click)="test()">test</button>
     </div>
 </form>
