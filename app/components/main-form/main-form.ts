@@ -1,12 +1,14 @@
 import { Component } from 'angular2/core';
-import { ControlGroup, Validators, FormBuilder, Control } from 'angular2/common';
+import { FormBuilder, ControlGroup, Control, Validators, FORM_DIRECTIVES, CORE_DIRECTIVES, FORM_PROVIDERS } from 'angular2/common';
 
 import Constants from '../../utils/constants';
 import DB from '../../services/DB';
 
 @Component({
     templateUrl: './app/components/main-form/main-form.html',
-    selector: 'main-form'
+    selector: 'main-form',
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES],
+    providers: [FORM_PROVIDERS]
 })
 
 export class MainForm {
@@ -24,11 +26,15 @@ export class MainForm {
     index: number = 1;
     constructor(private builder: FormBuilder) {
         this._builder = builder;
+        this.title = new Control('', Validators.required);
+        this.link = new Control('', this.linksChecker);
+        this.cover = new Control('', Validators.required);
+        this.source = new Control('', Validators.required);
         this.form = builder.group({
-            title: new Control('', Validators.required),
-            link: new Control('', Validators.required),
-            cover: new Control('', Validators.required),
-            source: new Control('', Validators.required),
+            title: this.title,
+            link: this.link,
+            cover:this.cover,
+            source:this.source,
             parts: [[new FormModel(1, this._builder).form]]
         });
     }
@@ -55,7 +61,7 @@ export class MainForm {
         // });
     }
     test() {
-        console.log(this.form);
+        console.log(this.title);
     }
 
 }

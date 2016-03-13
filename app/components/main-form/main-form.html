@@ -1,6 +1,11 @@
 <form class="col-md-6 col-md-offset-3" [ngFormModel]="form" (submit)="onSubmit($event)">
-    <fieldset class="form-group">
-        <input type="text" class="form-control" placeholder="Title" ngControl="title" required>
+<!-- неработает здесь. потому что нельзя запихнуть [class.has-danger]="title.touched" в fieldset (во врапер ngControl), т.к. он требует какой-то еще хрени, никакие дополнительные (FORM_DIRECTIVES, CORE_DIRECTIVES, FORM_PROVIDERS) не помогают. где-то было написано что надо обновить ангулар до 8 беты, но хер там плавал. еще и тонна семантических ошибок в консоли валится.-->
+    <fieldset class="form-group" [class.has-danger]="title.touched">
+<!-- //// -->
+        <input [class.form-control-danger]="title.touched && title.errors.required" type="text" class="form-control" placeholder="Title" ngControl="title" required>
+        <div *ngIf="title.dirty && !title.valid && !title.pending">
+            <p class="text-help" *ngIf="title.errors.required">title is required.</p>
+        </div>
     </fieldset>
     <fieldset class="form-group">
         <input type="text" class="form-control" placeholder="Article link" ngControl="link" required>
@@ -15,7 +20,7 @@
     <div *ngFor="#partObj of form.value.parts; #i = index">
         <form [ngFormModel]="partObj">
             <label>Part {{partObj.value.part}}</label>
-            <fieldset class="form-group"  *ngIf="partObj.value.part != 1">
+            <fieldset class="form-group" *ngIf="partObj.value.part != 1">
                 <input class="form-control" type="text" placeholder="question" ngControl="question" required>
             </fieldset>
             <fieldset class="form-group">
