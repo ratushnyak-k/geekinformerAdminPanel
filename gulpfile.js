@@ -70,7 +70,7 @@ gulp.task('watch', function() {
     var spriteWatcher = gulp.watch(['src/img/sprite/*.png'], ['sprite']);
 
 });
-gulp.task('style:dev', ['css:del'], function() {
+gulp.task('style:dev', function() {
     return gulp.src('app/static/styles/src/*.styl')
         .pipe(sourcemaps.init())
         .pipe(stylus()).on('error', error)

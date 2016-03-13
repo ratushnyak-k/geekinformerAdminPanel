@@ -1,5 +1,5 @@
-import { Component } from 'angular2/core';
-import { FormBuilder, ControlGroup, Control, Validators, FORM_DIRECTIVES, CORE_DIRECTIVES, FORM_PROVIDERS } from 'angular2/common';
+import { Component, Injectable } from 'angular2/core';
+import { ControlGroup, Validators, FormBuilder, Control, FORM_DIRECTIVES } from 'angular2/common';
 
 import Constants from '../../utils/constants';
 import DB from '../../services/DB';
@@ -7,8 +7,7 @@ import DB from '../../services/DB';
 @Component({
     templateUrl: './app/components/main-form/main-form.html',
     selector: 'main-form',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES],
-    providers: [FORM_PROVIDERS]
+    directives: [FORM_DIRECTIVES]
 })
 
 export class MainForm {
@@ -22,30 +21,28 @@ export class MainForm {
 
     form: ControlGroup;
     _builder: FormBuilder;
-
+    linksChecker;
     index: number = 1;
+    validateService = new LinksCheckerService();
     constructor(private builder: FormBuilder) {
+        this.linksChecker = this.validateService.linksChecker;
         this._builder = builder;
+
         this.title = new Control('', Validators.required);
-        this.link = new Control('', this.linksChecker);
-        this.cover = new Control('', Validators.required);
-        this.source = new Control('', Validators.required);
+        this.link = new Control('', Validators.compose([Validators.required, this.linksChecker]));
+        this.cover = new Control('', Validators.compose([Validators.required, this.linksChecker]));
+        this.source = new Control('', Validators.compose([Validators.required, this.linksChecker]));
+        this.parts = new FormModel(1, this._builder).form;
+
         this.form = builder.group({
             title: this.title,
             link: this.link,
-            cover:this.cover,
-            source:this.source,
-            parts: [[new FormModel(1, this._builder).form]]
+            cover: this.cover,
+            source: this.source,
+            parts: [
+                [this.parts]
+            ]
         });
-    }
-    linksChecker(c: Control) {
-        var regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-        if (!regex.test(c.value)) {
-            return {
-                link: true
-            };
-        }
-        return null;
     }
     addOncePart() {
         this.index++;
@@ -61,28 +58,46 @@ export class MainForm {
         // });
     }
     test() {
-        console.log(this.title);
+        console.log(this.form);
     }
 
 }
 
-class FormModel {
+export class FormModel {
     part: Control;
     question: Control;
     image: Control;
     text: Control;
 
     form: ControlGroup;
-
+    linksChecker;
+    validateService = new LinksCheckerService();
     constructor(part, private builder: FormBuilder) {
+        this.linksChecker = this.validateService.linksChecker;
+        this.part = new Control(part);
+        this.question = new Control('', Validators.required);
+        this.image = new Control('', Validators.compose([Validators.required, this.linksChecker]));
+        this.text = new Control('', Validators.required);
         this.form = builder.group({
-            part: new Control(part),
-            question: new Control('', Validators.required),
-            image: new Control('http://'),
-            text: new Control('', Validators.required)
+            part: this.part,
+            question: this.question,
+            image: this.image,
+            text: this.text
         });
     }
     getForm() {
         return this.form;
+    }
+}
+@Injectable();
+export class LinksCheckerService {
+    linksChecker(c: Control) {
+        var regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+        if (!regex.test(c.value)) {
+            return {
+                link: true
+            };
+        }
+        return null;
     }
 }
