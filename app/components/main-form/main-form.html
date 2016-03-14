@@ -32,22 +32,22 @@
             <label>Part {{partObj.value.part}}</label>
             <fieldset class="form-group" *ngIf="partObj.value.part != 1">
                 <input class="form-control" type="text" placeholder="question" ngControl="question" required>
-                <div *ngIf="parts.controls.question.errors && parts.controls.question.touched">
-                    <div class="text-help" *ngIf="parts.controls.question.errors.required">This field is required</div>
+                <div *ngIf="form.controls.parts.value[i].controls.question.errors && form.controls.parts.value[i].controls.question.touched">
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.question.errors.required">This field is required</div>
                 </div>
             </fieldset>
             <fieldset class="form-group">
                 <input class="form-control" type="text" placeholder="link to image" ngControl="image" required>
-                <div *ngIf="parts.controls.image.errors && parts.controls.image.touched">
-                    <div class="text-help" *ngIf="parts.controls.image.errors.link">This is not a link</div>
-                    <div class="text-help" *ngIf="parts.controls.image.errors.required">This field is required</div>
+                <div *ngIf="form.controls.parts.value[i].controls.image.errors && form.controls.parts.value[i].controls.image.touched">
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.image.errors.link">This is not a link</div>
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.image.errors.required">This field is required</div>
                 </div>
                 <img [src]="image" *ngIf="image">
             </fieldset>
             <fieldset class="form-group">
                 <textarea class="form-control" rows="3" placeholder="text" ngControl="text" required></textarea>
-                <div *ngIf="parts.controls.text.errors && parts.controls.text.touched">
-                    <div class="text-help" *ngIf="parts.controls.text.errors.required">This field is required</div>
+                <div *ngIf="form.controls.parts.value[i].controls.text.errors && form.controls.parts.value[i].controls.text.touched">
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.text.errors.required">This field is required</div>
                 </div>
             </fieldset>
         </form>

@@ -51,6 +51,17 @@ export class MainForm {
 
     onSubmit(e) {
         e.preventDefault();
+        var form = this.form.value;
+        var parts = [];
+
+        for (var i = 0; i < form.parts.length; ++i) {
+            var part = form.parts[i].value;
+
+            parts = [...parts, new ProcessedSecondaryPart(part.part, part.question, part.image, part.text)];
+        }
+
+        var readyForSend = new ProcessedMainPart(form.title, form.link, form.cover, form.source, parts);
+        console.log(readyForSend);
         // DB.addMessage(this.article).then(() => {
         //    alert('Article added')
         // }, () => {
@@ -74,10 +85,12 @@ export class FormModel {
     validateService = new LinksCheckerService();
     constructor(part, private builder: FormBuilder) {
         this.linksChecker = this.validateService.linksChecker;
+
         this.part = new Control(part);
         this.question = new Control('', Validators.required);
         this.image = new Control('', Validators.compose([Validators.required, this.linksChecker]));
         this.text = new Control('', Validators.required);
+
         this.form = builder.group({
             part: this.part,
             question: this.question,
@@ -99,5 +112,33 @@ export class LinksCheckerService {
             };
         }
         return null;
+    }
+}
+
+export class ProcessedMainPart {
+    title: string;
+    link: string;
+    cover: string;
+    source: string;
+    parts: any;
+    constructor(title, link, cover, source, parts) {
+        this.title = title;
+        this.link = link;
+        this.cover = cover;
+        this.source = source;
+        this.parts = parts;
+    }
+}
+
+export class ProcessedSecondaryPart {
+    part: string;
+    question: string;
+    image: string;
+    text: string;
+    constructor(part, question, image, text) {
+        this.part = part;
+        this.question = question;
+        this.image = image;
+        this.text = text;
     }
 }
