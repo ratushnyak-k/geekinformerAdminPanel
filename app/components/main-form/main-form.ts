@@ -51,22 +51,25 @@ export class MainForm {
 
     onSubmit(e) {
         e.preventDefault();
-        var form = this.form.value;
-        var parts = [];
+        if (this.form)  {
+            var form = this.form.value;
+            var parts = [];
 
-        for (var i = 0; i < form.parts.length; ++i) {
-            var part = form.parts[i].value;
+            for (var i = 0; i < form.parts.length; ++i) {
+                var part = form.parts[i].value;
 
-            parts = [...parts, new ProcessedSecondaryPart(part.part, part.question, part.image, part.text)];
+                parts = [...parts, new ProcessedSecondaryPart(part.part, part.question, part.image, part.text)];
+            }
+
+            var article = new ProcessedMainPart(form.title, form.link, form.cover, form.source, parts);
+             DB.addMessage(article).then(() => {
+                alert('Article added')
+             }, () => {
+                alert('Article failed')
+             });
+        } else {
+            //иначе показать ошибки
         }
-
-        var readyForSend = new ProcessedMainPart(form.title, form.link, form.cover, form.source, parts);
-        console.log(readyForSend);
-        // DB.addMessage(this.article).then(() => {
-        //    alert('Article added')
-        // }, () => {
-        //    alert('Article failed')
-        // });
     }
     test() {
         console.log(this.form);
@@ -102,7 +105,8 @@ export class FormModel {
         return this.form;
     }
 }
-@Injectable();
+
+@Injectable()
 export class LinksCheckerService {
     linksChecker(c: Control) {
         var regex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;

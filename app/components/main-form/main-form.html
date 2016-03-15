@@ -56,7 +56,7 @@
         <div *ngIf="index < maxLength" class="btn btn-success pull-right" (click)="addOncePart($event)">Add once</div>
     </div>
     <div class="form-group clearfix">
-        <button [disabled]="!form.valid" class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
+        <button class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
         <button (click)="test()">test</button>
     </div>
 </form>
