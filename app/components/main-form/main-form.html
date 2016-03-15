@@ -1,21 +1,62 @@
-<form class="col-md-6 col-md-offset-3" action="" (submit)="onSubmit($event)">
-    <div *ngFor="#onePart of formArray;">
-        <h1>Part {{onePart.part}}</h1>
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="question" [(ngModel)]="onePart.question">
+<form class="col-md-6 col-md-offset-3" [ngFormModel]="form" (submit)="onSubmit($event)">
+    <fieldset class="form-group">
+        <input type="text" class="form-control" placeholder="Title" ngControl="title" required>
+        <div *ngIf="title.errors && title.touched">
+            <div class="text-help" *ngIf="title.errors.required">This field is required</div>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="link to image" [(ngModel)]="onePart.img">
-            <img [src]="onePart.img" *ngIf="onePart.img">
+    </fieldset>
+    <fieldset class="form-group">
+        <input type="text" class="form-control" placeholder="Article link" ngControl="link" required>
+        <div *ngIf="link.errors && link.touched">
+            <div class="text-help" *ngIf="link.errors.link">This is not a link</div>
+            <div class="text-help" *ngIf="link.errors.required">This field is required</div>
         </div>
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="text" [(ngModel)]="onePart.text">
+    </fieldset>
+    <fieldset class="form-group">
+        <input type="text" class="form-control" placeholder="Cover image link" ngControl="cover" required>
+        <div *ngIf="cover.errors && cover.touched">
+            <div class="text-help" *ngIf="cover.errors.link">This is not a link</div>
+            <div class="text-help" *ngIf="cover.errors.required">This field is required</div>
         </div>
+    </fieldset>
+    <fieldset class="form-group">
+        <input type="text" class="form-control" placeholder="Article source" ngControl="source" required>
+        <div *ngIf="source.errors && source.touched">
+            <div class="text-help" *ngIf="source.errors.link">This is not a link</div>
+            <div class="text-help" *ngIf="source.errors.required">This field is required</div>
+        </div>
+    </fieldset>
+    <h3>Parts</h3>
+    <div *ngFor="#partObj of form.value.parts; #i = index">
+        <form [ngFormModel]="partObj">
+            <label>Part {{partObj.value.part}}</label>
+            <fieldset class="form-group" *ngIf="partObj.value.part != 1">
+                <input class="form-control" type="text" placeholder="question" ngControl="question" required>
+                <div *ngIf="form.controls.parts.value[i].controls.question.errors && form.controls.parts.value[i].controls.question.touched">
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.question.errors.required">This field is required</div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <input class="form-control" type="text" placeholder="link to image" ngControl="image" required>
+                <div *ngIf="form.controls.parts.value[i].controls.image.errors && form.controls.parts.value[i].controls.image.touched">
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.image.errors.link">This is not a link</div>
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.image.errors.required">This field is required</div>
+                </div>
+                <img [src]="image" *ngIf="image">
+            </fieldset>
+            <fieldset class="form-group">
+                <textarea class="form-control" rows="3" placeholder="text" ngControl="text" required></textarea>
+                <div *ngIf="form.controls.parts.value[i].controls.text.errors && form.controls.parts.value[i].controls.text.touched">
+                    <div class="text-help" *ngIf="form.controls.parts.value[i].controls.text.errors.required">This field is required</div>
+                </div>
+            </fieldset>
+        </form>
     </div>
     <div class="form-group clearfix">
         <div *ngIf="index < maxLength" class="btn btn-success pull-right" (click)="addOncePart($event)">Add once</div>
     </div>
     <div class="form-group clearfix">
         <button class="btn btn-primary pull-right" (click)="onSubmit($event)" type="submit">Submit</button>
+        <button (click)="test()">test</button>
     </div>
 </form>
