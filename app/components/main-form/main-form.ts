@@ -19,15 +19,14 @@ export class MainForm {
     cover: Control;
     source: Control;
     parts: any;
-    http
     result;
     form: ControlGroup;
     _builder: FormBuilder;
     linksChecker;
     index: number = 1;
     validateService = new LinksCheckerService();
-    constructor(private builder: FormBuilder, http: Http) {
-        this.http = http;
+
+    constructor(private builder: FormBuilder) {
         this.linksChecker = this.validateService.linksChecker;
         this._builder = builder;
 
@@ -71,16 +70,6 @@ export class MainForm {
         //    alert('Article failed')
         // });
     }
-    test() {
-        this.http.get('http://localhost:3000')
-            .map(res => res.text())
-            .subscribe(
-                data => console.log(data),
-                () => console.log('Secret Quote Complete')
-            );
-    }
-
-
 }
 
 export class FormModel {
@@ -149,5 +138,36 @@ export class ProcessedSecondaryPart {
         this.question = question;
         this.image = image;
         this.text = text;
+    }
+}
+//////////////////////////////////
+@Injectable();
+export class Server {
+    public http;
+    constructor() {
+        this.http = Http;
+    }
+    public get() {
+        this.http.get('http://localhost:3000')
+            .map(res => res.text())
+            .subscribe(
+                data => console.log(data),
+                () => console.log('Secret Quote Complete')
+            );
+    }
+}
+
+@Component({
+    template: `<button (click)="test()">check</button>`,
+    selector: 'example',
+    providers: [Server]
+})
+export class Example {
+    server;
+    constructor(http: Server) {
+        this.server = http;
+    }
+    test() {
+        console.log(this.server.get());
     }
 }
