@@ -50,7 +50,7 @@ gulp.task('compile-ts', function() {
 });
 
 browserSync({
-    port: 3000,
+    port: 8000,
     files: ['index.html', '**/*.js', 'app/static/styles/src/*.styl', 'app/components/**/*.html'],
     injectChanges: true,
     logFileChanges: true,

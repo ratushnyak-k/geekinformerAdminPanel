@@ -1,9 +1,10 @@
 import { Component, Injectable } from 'angular2/core';
 import { ControlGroup, Validators, FormBuilder, Control, FORM_DIRECTIVES } from 'angular2/common';
+import { Http, Response } from 'angular2/http';
 
 import Constants from '../../utils/constants';
 import DB from '../../services/DB';
-
+import 'rxjs/Rx';
 @Component({
     templateUrl: './app/components/main-form/main-form.html',
     selector: 'main-form',
@@ -18,13 +19,15 @@ export class MainForm {
     cover: Control;
     source: Control;
     parts: any;
-
+    http
+    result;
     form: ControlGroup;
     _builder: FormBuilder;
     linksChecker;
     index: number = 1;
     validateService = new LinksCheckerService();
-    constructor(private builder: FormBuilder) {
+    constructor(private builder: FormBuilder, http: Http) {
+        this.http = http;
         this.linksChecker = this.validateService.linksChecker;
         this._builder = builder;
 
@@ -69,8 +72,14 @@ export class MainForm {
         // });
     }
     test() {
-        console.log(this.form);
+        this.http.get('http://localhost:3000')
+            .map(res => res.text())
+            .subscribe(
+                data => console.log(data),
+                () => console.log('Secret Quote Complete')
+            );
     }
+
 
 }
 
