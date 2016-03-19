@@ -1,6 +1,7 @@
 import { Component, Injectable } from 'angular2/core';
 import { ControlGroup, Validators, FormBuilder, Control, FORM_DIRECTIVES } from 'angular2/common';
-import { Http, Response } from 'angular2/http';
+import * as axios from 'axios';
+
 
 import Constants from '../../utils/constants';
 import DB from '../../services/DB';
@@ -25,7 +26,7 @@ export class MainForm {
     linksChecker;
     index: number = 1;
     validateService = new LinksCheckerService();
-
+    server = new Server();
     constructor(private builder: FormBuilder) {
         this.linksChecker = this.validateService.linksChecker;
         this._builder = builder;
@@ -50,7 +51,12 @@ export class MainForm {
         this.index++;
         this.form.value.parts.push(new FormModel(this.index, this._builder).form);
     }
-
+    test() {
+        this.server.get('http://localhost:9000/')
+            .then(function (response) {
+                console.log(response.data);
+            });
+    }
     onSubmit(e) {
         e.preventDefault();
         var form = this.form.value;
@@ -143,31 +149,7 @@ export class ProcessedSecondaryPart {
 //////////////////////////////////
 @Injectable();
 export class Server {
-    public http;
-    constructor() {
-        this.http = Http;
-    }
-    public get() {
-        this.http.get('http://localhost:3000')
-            .map(res => res.text())
-            .subscribe(
-                data => console.log(data),
-                () => console.log('Secret Quote Complete')
-            );
-    }
-}
-
-@Component({
-    template: `<button (click)="test()">check</button>`,
-    selector: 'example',
-    providers: [Server]
-})
-export class Example {
-    server;
-    constructor(http: Server) {
-        this.server = http;
-    }
-    test() {
-        console.log(this.server.get());
+    public get(url: string) {
+        return axios.get(url)
     }
 }

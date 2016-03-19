@@ -19,6 +19,7 @@
     "zone.js": "0.5.11"
   },
   "devDependencies": {
+    "axios": "^0.9.1",
     "browser-sync": "^2.9.3",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
